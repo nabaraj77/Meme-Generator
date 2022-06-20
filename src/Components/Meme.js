@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import MemeData from "../MemeData";
 
 const Meme = () => {
-  const [topValue, setTopValue] = useState("Welcome to MEME");
-  const [bottomValue, setBottomValue] = useState("Type the Meme");
+  const [topValue, setTopValue] = useState("MEME World");
+  const [bottomValue, setBottomValue] = useState("Type Smth..");
   const [url, setUrl] = useState("./Images/meme.png");
   const [URL, setURL] = useState({});
   const getMemeData = async () => {
@@ -21,11 +21,11 @@ const Meme = () => {
   useEffect(() => {
     getMemeData();
   }, []);
-  console.log(URL);
   //console.log(topValue, bottomValue);
   const memeGeneratorHandler = () => {
     //console.log("btn-clicked");
     const randomNo = Math.trunc(Math.random() * MemeData.length + 1);
+
     setUrl(URL[randomNo].data.thumbnail);
   };
 
