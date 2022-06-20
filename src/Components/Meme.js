@@ -1,25 +1,67 @@
 import "./Meme.css";
 
-import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import MemeData from "../MemeData";
 
 const Meme = () => {
+  const [topValue, setTopValue] = useState("Welcome to MEME");
+  const [bottomValue, setBottomValue] = useState("Type the Meme");
+  const [url, setUrl] = useState("./Images/meme.png");
+  const [URL, setURL] = useState({});
+  const getMemeData = async () => {
+    try {
+      const response = await fetch(" https://www.reddit.com/r/memes.json");
+      const data = await response.json();
+      setURL(data.data.children);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getMemeData();
+  }, []);
+  console.log(URL);
+  //console.log(topValue, bottomValue);
+  const memeGeneratorHandler = () => {
+    //console.log("btn-clicked");
+    const randomNo = Math.trunc(Math.random() * MemeData.length + 1);
+    setUrl(URL[randomNo].data.thumbnail);
+  };
+
   return (
     <div className="meme-content">
       <div className="input">
-        <input type="text" placeholder="Enter text" className="input-1" />
-        <input type="text" placeholder="Enter text" className="input-2" />
+        <input
+          type="text"
+          placeholder="Top-Text"
+          className="input-1"
+          value={topValue}
+          onChange={(event) => {
+            setTopValue(event.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="Buttom-Text"
+          className="input-2"
+          value={bottomValue}
+          onChange={(event) => {
+            setBottomValue(event.target.value);
+          }}
+        />
       </div>
       <div className="meme-creator">
-        <h3 className="meme-generator">Get a Meme Image</h3>
+        <h3 className="meme-generator" onClick={memeGeneratorHandler}>
+          Get a Meme Image
+        </h3>
       </div>
       <div className="image-meme">
-        <img src="./Images/meme.png" alt="" className="meme-created-image" />
+        <img src={url} alt="" className="meme-created-image" />
       </div>
       <div className="meme-input-content">
-        <h2 className="meme-generated-content-one">Hello Nabaraj</h2>
-        <h2 className="meme-generated-content-two">
-          Hello Nabaraj Meme Content
-        </h2>
+        <h2 className="meme-generated-content-one">{topValue}</h2>
+        <h2 className="meme-generated-content-two">{bottomValue}</h2>
       </div>
     </div>
   );
