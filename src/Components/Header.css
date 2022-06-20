@@ -1,0 +1,25 @@
+.header {
+  height: 70px;
+
+  background-image: linear-gradient(
+    to right,
+    rgba(139, 36, 174, 1),
+    rgba(138, 62, 205, 1)
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: white;
+}
+.meme-logo {
+  max-width: 30px;
+  border-radius: 10px;
+}
+.meme-heading {
+  margin-left: 1rem;
+}
+.meme {
+  display: flex;
+  align-items: center;
+}
